@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>ExpressEats</title>
+ <link rel="Website icon" type="png" href="logo.png">
+ <link href="main.css" rel="stylesheet">
+ <script>
+function calculateTotal() {
+  var quantity = parseInt(document.getElementById("quantity").value);
+  var sizePrice = parseFloat(document.getElementById("size").value);
+  var pastaPrice = parseFloat(document.getElementById("pasta").value);
+  var drinksPrice = parseFloat(document.getElementById("drinks").value);
+  var pizzaTotal = quantity * sizePrice;
+  var pastaTotal = quantity * pastaPrice;
+  var drinksTotal = quantity * drinksPrice;
+  var total = pizzaTotal + pastaTotal + drinksTotal;
+ document.getElementById("total").innerHTML = "Total: ₱" + total.toFixed(2);
+}
+
+function calculateChange() {
+   var tendered = parseFloat(document.getElementById("tendered").value);
+   var total = parseFloat(document.getElementById("total").innerText.split("₱")[1]);
+   var change = tendered - total;
+   if (!isNaN(change)) {
+     document.getElementById("change").innerHTML = "Change: ₱" + change.toFixed(2);
+   }
+}
+
+document.getElementById("tendered").addEventListener("keydown", function(event) {
+   if (event.keyCode === 13) {
+    event.preventDefault();
+    calculateChange();
+   }
+});
+
+ </script>
+</head>
+<body>
+<div>
+   <label>Pizza Size:</label>
+   <select id="size" name="size" onchange="calculateTotal()" required>
+   <option value=""><p>-- Select a product --</p></option> 
+   <option value="300.00">Small</option>
+   <option value="500.00">Medium</option>
+   <option value="700.00">Large</option>
+   <option value="1000.00">Extra Large</option>
+   </select>
+   <input type="number" id="quantity" name="quantity" min="1" onchange="calculateTotal()" required>
+   <br>
+   <label>Pizza Flavors:</label>
+   <select id="flavors" name="flavors" onchange="calculateTotal()" required>
+   <option value=""><p>-- Select a product --</p></option> 
+   <option value="">Ham and Cheese</option>
+   <option value="">Cheese</option>
+   <option value="">Hawaiian</option>
+   <option value="">Pepperoni</option>
+   </select>
+   <br>
+   <br>
+   <label>Pasta:</label>
+   <select id="pasta" name="pasta" onchange="calculateTotal()" required>
+   <option value=""><p>-- Select a product --</p></option> 
+   <option value="120.00">1</option>
+   <option value="120.00">2</option>
+   <option value="120.00">3</option>
+   <option value="150.00">4</option>
+   </select>
+   <input type="number" id="pastaQuantity" name="pastaQuantity" min="1" onchange="calculateTotal()" required>
+   <br>
+   <label>Drinks:</label>
+   <select id="drinks" name="drinks" onchange="calculateTotal()" required>
+   <option value=""><p>-- Select a product --</p></option> 
+   <option value="20.00">1</option>
+   <option value="20.00">2</option>
+   <option value="20.00">3</option>
+   <option value="20.00">4</option>
+   </select>
+   <input type="number" id="drinksQuantity" name="drinksQuantity" min="1" onchange="calculateTotal()" required>
+   <br>
+
+<table>
+   <thead>
+      <tr>
+         <th>Pizza Size</th>
+         <th>Price</th>
+         <th>No.</th>
+         <th>Pasta</th>
+         <th>Price</th>
+         <th>Drinks</th>
+         <th>Price</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr>
+         <td>Small</td>
+         <td>300</td>
+         <td>1</td>
+         <td>Caborana</td>
+         <td>120</td>
+         <td>Coke</td>
+         <td>20</td>
+      </tr>
+      <tr>
+         <td>Medium</td>
+         <td>500</td>
+         <td>2</td>
+         <td>Spaghetti</td>
+         <td>120</td>
+         <td>Royal</td>
+         <td>20</td>
+      </tr>
+      <tr>
+         <td>Large</td>
+         <td>700</td>
+         <td>3</td>
+         <td>Itallnos</td>
+         <td>150</td>
+         <td>Sprite</td>
+         <td>20</td>
+      </tr>
+      <tr>
+         <td>Extra Large</td>
+         <td>1,000</td>
+         <td>4</td>
+         <td>Gourmet</td>
+         <td>150</td>
+         <td>Mountain Dew</td>
+         <td>20</td>
+      </tr>
+   </tbody>   
+</table>
+
+   <label for="total"><span id="total">Total: ₱0.00</span></label>
+   <br>
+    <input type="number" id="tendered" name="tendered" placeholder="Tendered" required>
+   <br>
+   <br>
+    <button onclick="calculateChange()">Enter Change</button>
+   <br>
+   <label for="change"><span id="change">Change: ₱0.00</span></label>
+</div>
+</body>
+</html>
